@@ -1,5 +1,4 @@
-﻿using PropertyChanged;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,40 +17,35 @@ using TP.AutoDeploy.Models;
 namespace TP.AutoDeploy.View
 {
     /// <summary>
-    /// Interaction logic for ProjectInfo.xaml
+    /// Interaction logic for ProjectInfoView.xaml
     /// </summary>
-    [ImplementPropertyChanged]
+    
     public partial class ProjectInfoView : UserControl
     {
         /// <summary>
-        /// Gets or sets the identifying name of the element. The name provides a reference so that code-behind, such as event handler code, can refer to a markup element after it is constructed during processing by a XAML processor.
-        /// </summary>
-        public string ProjectName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the output.
+        /// Gets or sets the project information.
         /// </summary>
         /// <value>
-        /// The output.
+        /// The project information.
         /// </value>
-        public string Output { get; set; }
+        public TargetInfo ProjectInfo { get; set; }
 
         /// <summary>
-        /// The project info
+        /// Initializes a new instance of the <see cref="ProjectInfoView"/> class.
         /// </summary>
-        public ProjectInfo Project { get; }
-
         public ProjectInfoView()
         {
             InitializeComponent();
+            this.DataContext = this;
         }
 
-        public ProjectInfoView(ProjectInfo project) : this()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProjectInfoView" /> class.
+        /// </summary>
+        /// <param name="project">The project.</param>
+        public ProjectInfoView(TargetInfo project) : this()
         {
-            this.DataContext = this;
-            this.Project = project;
-            this.ProjectName = project.ProjectName;
-            this.Output = project.Output;
+            this.ProjectInfo = project;
         }
     }
 }

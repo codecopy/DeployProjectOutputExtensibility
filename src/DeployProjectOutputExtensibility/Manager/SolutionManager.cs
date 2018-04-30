@@ -209,25 +209,6 @@ namespace TP.AutoDeploy.Manager
         }
 
         /// <summary>
-        /// Loads the selected project.
-        /// </summary>
-        /// <exception cref="NotSupportedException">Cannot create window.</exception>
-        public IList<Project> GetActivatedProjects()
-        {
-            var result = new List<Project>();
-            var activateProjects = ((Array)((DTE2)this.dte).ActiveSolutionProjects);
-            foreach (var pr in activateProjects)
-            {
-                if (pr is Project)
-                {
-                    result.Add((Project) pr);
-                }
-            }
-
-            return result;
-        }
-
-        /// <summary>
         /// Checks whether the current solution is saved to disk, as opposed to be in memory.
         /// </summary>
         public bool IsSolutionSavedAsRequired()

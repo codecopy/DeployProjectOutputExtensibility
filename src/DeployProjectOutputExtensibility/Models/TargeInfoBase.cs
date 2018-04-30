@@ -13,22 +13,12 @@ namespace TP.AutoDeploy.Models
     [ImplementPropertyChanged]
     public class TargetInfoBase
     {
-        private TargetInfoBase parentObject;
-
         /// <summary>
         /// The parent object
         /// </summary>
         [XmlIgnore]
         [AlsoNotifyFor("AbsoluteDir")]
-        public TargetInfoBase ParentObject
-        {
-            get { return this.parentObject; }
-            set
-            {
-                this.parentObject = value;
-                this.Parent = value.Name;
-            }
-        }
+        public TargetInfoBase ParentObject { get; set; }
 
         /// <summary>
         /// Gets or sets the common target.
