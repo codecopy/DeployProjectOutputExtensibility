@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PropertyChanged;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,35 +18,40 @@ using TP.AutoDeploy.Models;
 namespace TP.AutoDeploy.View
 {
     /// <summary>
-    /// Interaction logic for ProjectInfoView.xaml
+    /// Interaction logic for ProjectInfo.xaml
     /// </summary>
-    
+    [ImplementPropertyChanged]
     public partial class ProjectInfoView : UserControl
     {
         /// <summary>
-        /// Gets or sets the project information.
+        /// Gets or sets the identifying name of the element. The name provides a reference so that code-behind, such as event handler code, can refer to a markup element after it is constructed during processing by a XAML processor.
         /// </summary>
-        /// <value>
-        /// The project information.
-        /// </value>
-        public TargetInfo ProjectInfo { get; set; }
+        public string ProjectName { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProjectInfoView"/> class.
+        /// Gets or sets the output.
         /// </summary>
+        /// <value>
+        /// The output.
+        /// </value>
+        public string Output { get; set; }
+
+        /// <summary>
+        /// The project info
+        /// </summary>
+        public ProjectInfo Project { get; }
+
         public ProjectInfoView()
         {
             InitializeComponent();
-            this.DataContext = this;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProjectInfoView" /> class.
-        /// </summary>
-        /// <param name="project">The project.</param>
-        public ProjectInfoView(TargetInfo project) : this()
+        public ProjectInfoView(ProjectInfo project) : this()
         {
-            this.ProjectInfo = project;
+            this.DataContext = this;
+            this.Project = project;
+            this.ProjectName = project.ProjectName;
+            this.Output = project.Output;
         }
     }
 }
