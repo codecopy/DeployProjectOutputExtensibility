@@ -1,0 +1,803 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TP.AutoDeploy</name>
+    </assembly>
+    <members>
+        <member name="F:TP.AutoDeploy.Configuration.ConfigurationProvider.ConfigFileExtension">
+            <summary>
+            The configuration file extension
+            </summary>
+        </member>
+        <member name="F:TP.AutoDeploy.Configuration.ConfigurationProvider.SpecificExtensionFolderName">
+            <summary>
+            The specific extension folder name
+            </summary>
+        </member>
+        <member name="F:TP.AutoDeploy.Configuration.ConfigurationProvider.UserDataConfigFileName">
+            <summary>
+            The user data configuration file name
+            </summary>
+        </member>
+        <member name="F:TP.AutoDeploy.Configuration.ConfigurationProvider.instance">
+            <summary>
+            The instance
+            </summary>
+        </member>
+        <member name="P:TP.AutoDeploy.Configuration.ConfigurationProvider.ConfigFilePath">
+            <summary>
+            Gets or sets the configuration file path.
+            </summary>
+            <value>
+            The configuration file path.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.Configuration.ConfigurationProvider.solutionManager">
+            <summary>
+            Gets the solution manager.
+            </summary>
+            <value>
+            The solution manager.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.Configuration.ConfigurationProvider.Instance">
+            <summary>
+            Gets the instance.
+            </summary>
+            <value>
+            The instance.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.Configuration.ConfigurationProvider.UserMetadata">
+            <summary>
+            The current data
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.Configuration.ConfigurationProvider.LoadConfig">
+            <summary>
+            Loads the configuration.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TP.AutoDeploy.Configuration.ConfigurationProvider.GetUserConfigFile">
+            <summary>
+            Gets the user configuration file.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TP.AutoDeploy.Configuration.ConfigurationProvider.Save">
+            <summary>
+            Saves this instance.
+            </summary>
+        </member>
+        <member name="T:TP.AutoDeploy.DeploySelectedProject">
+            <summary>
+            Command handler
+            </summary>
+        </member>
+        <member name="F:TP.AutoDeploy.DeploySelectedProject.CommandSet">
+            <summary>
+            Command menu group (command set GUID).
+            </summary>
+        </member>
+        <member name="F:TP.AutoDeploy.DeploySelectedProject.package">
+            <summary>
+            VS Package that provides this command, not null.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.DeploySelectedProject.#ctor(Microsoft.VisualStudio.Shell.Package)">
+            <summary>
+            Initializes a new instance of the <see cref="!:Deploy.SelectedProject"/> class.
+            Adds our command handlers for menu (commands must exist in the command table file)
+            </summary>
+            <param name="package">Owner package, not null.</param>
+        </member>
+        <member name="P:TP.AutoDeploy.DeploySelectedProject.Instance">
+            <summary>
+            Gets the instance of the command.
+            </summary>
+        </member>
+        <member name="P:TP.AutoDeploy.DeploySelectedProject.serviceProvider">
+            <summary>
+            Gets the service provider from the owner package.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.DeploySelectedProject.Initialize(Microsoft.VisualStudio.Shell.Package)">
+            <summary>
+            Initializes the singleton instance of the command.
+            </summary>
+            <param name="package">Owner package, not null.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.DeploySelectedProject.OnDeploySingleProject(System.Object,System.EventArgs)">
+            <summary>
+            Handle callback function for deploying single project
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:TP.AutoDeploy.DeploySelectedProject.CheckCondition">
+            <summary>
+            Checks the condition.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TP.AutoDeploy.Extension.TargetExtension.UpdateData(TP.AutoDeploy.Models.TargetInfoBase,TP.AutoDeploy.Models.UserMetadata)">
+            <summary>
+            Updates the parent object.
+            </summary>
+            <param name="target">The target.</param>
+            <param name="userMetadata">The user metadata.</param>
+            <exception cref="T:System.ArgumentException">Inherit is True but Parent is Null</exception>
+        </member>
+        <member name="M:TP.AutoDeploy.Extension.TargetExtension.GetAbsolute(TP.AutoDeploy.Models.TargetInfoBase)">
+            <summary>
+            Gets the target path.
+            </summary>
+            <param name="target">The target.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TP.AutoDeploy.Helper.VSUIHelper.ShowMessageBox(System.String,Microsoft.VisualStudio.Shell.Interop.OLEMSGICON)">
+            <summary>
+            Shows the message box.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="level">The level.</param>
+            <returns>Result</returns>
+        </member>
+        <member name="M:TP.AutoDeploy.Helper.XmlHelper.LoadFromFile``1(System.String)">
+            <summary>
+            Loads from file.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="xmlFilePath">The XML file path.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TP.AutoDeploy.Helper.XmlHelper.SaveToFile``1(``0,System.String)">
+            <summary>
+            Saves to file.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj">The object.</param>
+            <param name="xmlFilePath">The XML file path.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.Helper.XmlHelper.ToString``1(``0)">
+            <summary>
+            Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj">The object.</param>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="P:TP.AutoDeploy.Manager.SolutionManager.Instance">
+            <summary>
+            Gets the instance.
+            </summary>
+            <value>
+            The instance.
+            </value>
+        </member>
+        <member name="F:TP.AutoDeploy.Manager.SolutionManager.serviceProvider">
+            <summary>
+            The service provider
+            </summary>
+        </member>
+        <member name="F:TP.AutoDeploy.Manager.SolutionManager.cachingProjectDict">
+            <summary>
+            The caching project dictionary
+            </summary>
+        </member>
+        <member name="F:TP.AutoDeploy.Manager.SolutionManager.dte">
+            <summary>
+            The vs monitor selection
+            </summary>
+        </member>
+        <member name="F:TP.AutoDeploy.Manager.SolutionManager.vsSolution">
+            <summary>
+            The vs solution
+            </summary>
+        </member>
+        <member name="F:TP.AutoDeploy.Manager.SolutionManager.solutionEvents">
+            <summary>
+            The solution events
+            </summary>
+        </member>
+        <member name="P:TP.AutoDeploy.Manager.SolutionManager.Name">
+            <summary>
+            Gets the name.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.Manager.SolutionManager.IsSolutionOpen">
+            <summary>
+            Gets a value indicating whether there is a solution open in the IDE.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.#ctor">
+            <summary>
+            Prevents a default instance of the <see cref="T:TP.AutoDeploy.Manager.SolutionManager"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.Initialize(System.IServiceProvider)">
+            <summary>
+            Initializes the specified service provider.
+            </summary>
+            <param name="svrrovider">The service provider.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.GetSolutionDirectory">
+            <summary>
+            Solutions the directory.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.GetSolutionFilePath">
+            <summary>
+            Gets the solution file path.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.GetProjects">
+            <summary>
+            Gets the projects.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.GetProject(System.String)">
+            <summary>
+            Gets the project.
+            </summary>
+            <param name="name">The name.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.GetActiveFilePath">
+            <summary>
+            Gets the active file path.
+            </summary>
+            <returns>Active doc file path</returns>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.GetActivatedProject">
+            <summary>
+            Loads the selected project.
+            </summary>
+            <exception cref="T:System.NotSupportedException">Cannot create window.</exception>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.GetActivatedProjects">
+            <summary>
+            Loads the selected project.
+            </summary>
+            <exception cref="T:System.NotSupportedException">Cannot create window.</exception>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.IsSolutionSavedAsRequired">
+            <summary>
+            Checks whether the current solution is saved to disk, as opposed to be in memory.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.EnsureProjectCache">
+            <summary>
+            Ensures the project cache.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.AddProjectToCache(EnvDTE.Project)">
+            <summary>
+            Adds the project to cache.
+            </summary>
+            <param name="project">The project.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.RemoveProjectFromCache(EnvDTE.Project)">
+            <summary>
+            Adds the project to cache.
+            </summary>
+            <param name="project">The project.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.RegisterSolutionEvent">
+            <summary>
+            Registers the solution event.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.UnregisterSolutionEvent">
+            <summary>
+            Registers the solution event.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.OnSolutioClosing">
+            <summary>
+            Called when [solution closing].
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.OnSolutionOpened">
+            <summary>
+            Called when [solution opened].
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.OnProjectRenamed(EnvDTE.Project,System.String)">
+            <summary>
+            Called when [project renamed].
+            </summary>
+            <param name="project">The project.</param>
+            <param name="oldName">The old name.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.OnProjectRemoved(EnvDTE.Project)">
+            <summary>
+            Called when [project removed].
+            </summary>
+            <param name="project">The project.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.Manager.SolutionManager.OnProjectAdded(EnvDTE.Project)">
+            <summary>
+            Called when [project added].
+            </summary>
+            <param name="project">The project.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.Models.ProjectInfo.GetProjectOutput">
+            <summary>
+            Gets the project output.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TP.AutoDeploy.Models.ProjectInfo.Deploy(TP.AutoDeploy.Models.TargetInfo,System.String@)">
+            <summary>
+            Deploy project output
+            </summary>
+            <param name="target"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="P:TP.AutoDeploy.Models.TargetInfo.OverrideMode">
+            <summary>
+            Gets or sets a value indicating whether [override mode].
+            </summary>
+            <value>
+              <c>true</c> if [override mode]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.Models.TargetInfoBase.ParentObject">
+            <summary>
+            The parent object
+            </summary>
+        </member>
+        <member name="P:TP.AutoDeploy.Models.TargetInfoBase.CommonTarget">
+            <summary>
+            Gets or sets the common target.
+            </summary>
+            <value>
+            The common target.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.Models.TargetInfoBase.AbsoluteDir">
+            <summary>
+            Gets or sets the absolute dir.
+            </summary>
+            <value>
+            The absolute dir.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.Models.TargetInfoBase.Name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.Models.TargetInfoBase.Inherit">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:TP.AutoDeploy.Models.TargetInfoBase"/> is inherit.
+            </summary>
+            <value>
+              <c>true</c> if inherit; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.Models.TargetInfoBase.Parent">
+            <summary>
+            Gets or sets the parent.
+            </summary>
+            <value>
+            The parent.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.Models.TargetInfoBase.TargetDir">
+            <summary>
+            Gets or sets the target dir.
+            </summary>
+            <value>
+            The target dir.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.Models.TargetInfoBase.IsFixedTargetDir">
+            <summary>
+            Gets or sets a value indicating whether this instance is fixed target dir.
+            </summary>
+            <value>
+              <c>true</c> if this instance is fixed target dir; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:TP.AutoDeploy.Models.TargetInfoBase.ToString">
+            <summary>
+            Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="P:TP.AutoDeploy.Models.UserMetadata.CommonTarget">
+            <summary>
+            Gets or sets the common target.
+            </summary>
+            <value>
+            The common target.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.Models.UserMetadata.Targets">
+            <summary>
+            Gets or sets the projects.
+            </summary>
+            <value>
+            The projects.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.Models.UserMetadata.Item(System.String)">
+            <summary>
+            Gets the <see cref="T:TP.AutoDeploy.Models.TargetInfo"/> with the specified project name.
+            </summary>
+            <value>
+            The <see cref="T:TP.AutoDeploy.Models.TargetInfo"/>.
+            </value>
+            <param name="targetName">Name of the project.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TP.AutoDeploy.Models.UserMetadata.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:TP.AutoDeploy.Models.UserMetadata"/> class.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.Models.UserMetadata.UpdateData">
+            <summary>
+            Updates the data.
+            </summary>
+        </member>
+        <member name="T:TP.AutoDeploy.View.DeployMultiProjectView">
+            <summary>
+            Interaction logic for DeploySelectedProject.xaml
+            </summary>
+            <summary>
+            DeployMultiProjectView
+            </summary>
+        </member>
+        <member name="F:TP.AutoDeploy.View.DeployMultiProjectView.package">
+            <summary>
+            VS Package that provides this command, not null.
+            </summary>
+        </member>
+        <member name="F:TP.AutoDeploy.View.DeployMultiProjectView.userMetadata">
+            <summary>
+            The user metadata
+            </summary>
+        </member>
+        <member name="F:TP.AutoDeploy.View.DeployMultiProjectView.configProject">
+            <summary>
+            The configuration project
+            </summary>
+        </member>
+        <member name="P:TP.AutoDeploy.View.DeployMultiProjectView.IsNewProject">
+            <summary>
+            The is project existing
+            </summary>
+        </member>
+        <member name="P:TP.AutoDeploy.View.DeployMultiProjectView.serviceProvider">
+            <summary>
+            Gets the service provider from the owner package.
+            </summary>
+        </member>
+        <member name="P:TP.AutoDeploy.View.DeployMultiProjectView.ProjectDeployment">
+            <summary>
+            Gets or sets the project information.
+            </summary>
+            <value>
+            The project information.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.View.DeployMultiProjectView.Projects">
+            <summary>
+            Selected projects
+            </summary>
+        </member>
+        <member name="P:TP.AutoDeploy.View.DeployMultiProjectView.Error">
+            <summary>
+            Gets or sets the error.
+            </summary>
+            <value>
+            The error.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.View.DeployMultiProjectView.HasError">
+            <summary>
+            Gets or sets a value indicating whether this instance has error.
+            </summary>
+            <value>
+              <c>true</c> if this instance has error; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeployMultiProjectView.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:TP.AutoDeploy.View.DeploySingleProjectView"/> class.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeployMultiProjectView.#ctor(Microsoft.VisualStudio.Shell.Package)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TP.AutoDeploy.View.DeploySingleProjectView"/> class.
+            </summary>
+            <param name="inPackage">The in package.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeployMultiProjectView.LoadData">
+            <summary>
+            Loads the data.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeployMultiProjectView.DeployManualOnClick(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Deploys the manual on click.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeployMultiProjectView.SaveOnClick(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Saves the on click.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeployMultiProjectView.ClearErrorAndLog">
+            <summary>
+            Clears the error.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeployMultiProjectView.SetError(System.String)">
+            <summary>
+            Sets the error.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeployMultiProjectView.Log(System.String)">
+            <summary>
+            Logs the specified message.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeployMultiProjectView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:TP.AutoDeploy.View.DeploySingleProjectView">
+            <summary>
+            Interaction logic for DeploySelectedProject.xaml
+            </summary>
+            <summary>
+            DeploySingleProjectView
+            </summary>
+        </member>
+        <member name="F:TP.AutoDeploy.View.DeploySingleProjectView.package">
+            <summary>
+            VS Package that provides this command, not null.
+            </summary>
+        </member>
+        <member name="F:TP.AutoDeploy.View.DeploySingleProjectView.currentProject">
+            <summary>
+            The current project
+            </summary>
+        </member>
+        <member name="F:TP.AutoDeploy.View.DeploySingleProjectView.userMetadata">
+            <summary>
+            The user metadata
+            </summary>
+        </member>
+        <member name="F:TP.AutoDeploy.View.DeploySingleProjectView.configProject">
+            <summary>
+            The configuration project
+            </summary>
+        </member>
+        <member name="P:TP.AutoDeploy.View.DeploySingleProjectView.IsNewProject">
+            <summary>
+            The is project existing
+            </summary>
+        </member>
+        <member name="P:TP.AutoDeploy.View.DeploySingleProjectView.serviceProvider">
+            <summary>
+            Gets the service provider from the owner package.
+            </summary>
+        </member>
+        <member name="P:TP.AutoDeploy.View.DeploySingleProjectView.ProjectDeployment">
+            <summary>
+            Gets or sets the project information.
+            </summary>
+            <value>
+            The project information.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.View.DeploySingleProjectView.ProjectInfo">
+            <summary>
+            Selected project info
+            </summary>
+        </member>
+        <member name="P:TP.AutoDeploy.View.DeploySingleProjectView.Error">
+            <summary>
+            Gets or sets the error.
+            </summary>
+            <value>
+            The error.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.View.DeploySingleProjectView.HasError">
+            <summary>
+            Gets or sets a value indicating whether this instance has error.
+            </summary>
+            <value>
+              <c>true</c> if this instance has error; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeploySingleProjectView.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:TP.AutoDeploy.View.DeploySingleProjectView"/> class.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeploySingleProjectView.#ctor(Microsoft.VisualStudio.Shell.Package)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TP.AutoDeploy.View.DeploySingleProjectView"/> class.
+            </summary>
+            <param name="inPackage">The in package.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeploySingleProjectView.LoadData">
+            <summary>
+            Loads the data.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeploySingleProjectView.DeployManualOnClick(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Deploys the manual on click.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeploySingleProjectView.SaveOnClick(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Saves the on click.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeploySingleProjectView.ClearErrorAndLog">
+            <summary>
+            Clears the error.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeploySingleProjectView.SetError(System.String)">
+            <summary>
+            Sets the error.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeploySingleProjectView.Log(System.String)">
+            <summary>
+            Logs the specified message.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.View.DeploySingleProjectView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:TP.AutoDeploy.View.ProjectDeploymentView">
+            <summary>
+            Interaction logic for ProjectInfoView.xaml
+            </summary>
+            <summary>
+            ProjectDeploymentView
+            </summary>
+        </member>
+        <member name="P:TP.AutoDeploy.View.ProjectDeploymentView.ProjectInfo">
+            <summary>
+            Gets or sets the project information.
+            </summary>
+            <value>
+            The project information.
+            </value>
+        </member>
+        <member name="M:TP.AutoDeploy.View.ProjectDeploymentView.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:TP.AutoDeploy.View.ProjectDeploymentView"/> class.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.View.ProjectDeploymentView.#ctor(TP.AutoDeploy.Models.TargetInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TP.AutoDeploy.View.ProjectDeploymentView" /> class.
+            </summary>
+            <param name="project">The project.</param>
+        </member>
+        <member name="M:TP.AutoDeploy.View.ProjectDeploymentView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:TP.AutoDeploy.View.ProjectInfoView">
+            <summary>
+            Interaction logic for ProjectInfo.xaml
+            </summary>
+            <summary>
+            ProjectInfoView
+            </summary>
+        </member>
+        <member name="P:TP.AutoDeploy.View.ProjectInfoView.ProjectName">
+            <summary>
+            Gets or sets the identifying name of the element. The name provides a reference so that code-behind, such as event handler code, can refer to a markup element after it is constructed during processing by a XAML processor.
+            </summary>
+        </member>
+        <member name="P:TP.AutoDeploy.View.ProjectInfoView.Output">
+            <summary>
+            Gets or sets the output.
+            </summary>
+            <value>
+            The output.
+            </value>
+        </member>
+        <member name="P:TP.AutoDeploy.View.ProjectInfoView.Project">
+            <summary>
+            The project info
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.View.ProjectInfoView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:TP.AutoDeploy.DeploySelectedProjectPackage">
+            <summary>
+            This is the class that implements the package exposed by this assembly.
+            </summary>
+            <remarks>
+            <para>
+            The minimum requirement for a class to be considered a valid package for Visual Studio
+            is to implement the IVsPackage interface and register itself with the shell.
+            This package uses the helper classes defined inside the Managed Package Framework (MPF)
+            to do it: it derives from the Package class that provides the implementation of the
+            IVsPackage interface and uses the registration attributes defined in the framework to
+            register itself and its components with the shell. These attributes tell the pkgdef creation
+            utility what data to put into .pkgdef file.
+            </para>
+            <para>
+            To get loaded into VS, the package must be referred by &lt;Asset Type="Microsoft.VisualStudio.VsPackage" ...&gt; in .vsixmanifest file.
+            </para>
+            </remarks>
+        </member>
+        <member name="F:TP.AutoDeploy.DeploySelectedProjectPackage.PackageGuidString">
+            <summary>
+            Deploy.SelectedProjectPackage GUID string.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.DeploySelectedProjectPackage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="!:Deploy.SelectedProject"/> class.
+            </summary>
+        </member>
+        <member name="M:TP.AutoDeploy.DeploySelectedProjectPackage.Initialize">
+            <summary>
+            Initialization of the package; this method is called right after the package is sited, so this is the place
+            where you can put all the initialization code that rely on services provided by VisualStudio.
+            </summary>
+        </member>
+        <member name="F:TP.AutoDeploy.VSContext.ServiceProvider">
+            <summary>
+            The service provider
+            </summary>
+        </member>
+    </members>
+</doc>

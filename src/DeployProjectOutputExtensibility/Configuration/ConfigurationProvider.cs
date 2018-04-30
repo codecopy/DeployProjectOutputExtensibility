@@ -76,42 +76,11 @@ namespace TP.AutoDeploy.Configuration
             }
             else
             {
-                this.UserMetadata = new UserMetadata();
+                // Load default data
+                var rootPath = Path.GetDirectoryName(typeof(ConfigurationProvider).Assembly.Location);
+                var defaultConfigFile = Path.Combine(rootPath, @"Resources\DefaultConfig.xml");
+                this.UserMetadata = XmlHelper.LoadFromFile<UserMetadata>(defaultConfigFile);
             }
-
-            this.UserMetadata.CommonTarget.Add(new TargetInfoBase
-            {
-                Name = "SMEE",
-                TargetDir = @"C:\Program Files (x86)\SMEE"
-            });
-            this.UserMetadata.CommonTarget.Add(new TargetInfoBase
-            {
-                Name = "PLATFORM",
-                TargetDir = "PLATFORM-LIBS",
-                Inherit = true,
-                Parent = "SMEE"
-            });
-            this.UserMetadata.CommonTarget.Add(new TargetInfoBase
-            {
-                Name = "MODULE-LIBS",
-                TargetDir = "MODULE-LIBS",
-                Inherit = true,
-                Parent = "SMEE"
-            });
-            this.UserMetadata.CommonTarget.Add(new TargetInfoBase
-            {
-                Name = "NADAE",
-                TargetDir = "NADAE",
-                Inherit = true,
-                Parent = "SMEE"
-            });
-            this.UserMetadata.CommonTarget.Add(new TargetInfoBase
-            {
-                Name = "TOOLS",
-                TargetDir = "TOOLS",
-                Inherit = true,
-                Parent = "SMEE"
-            });
 
             this.UserMetadata.UpdateData();
             return this.UserMetadata;

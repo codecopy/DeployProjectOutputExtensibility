@@ -43,7 +43,7 @@
       To define a group we have to specify its ID, the parent and its display priority.
       In this case we use as our parent menu the Tools menu of VS; its ID is defined in vsshlids.h.
       -->
-      <Group guid="guidMenuAndCommandsCmdSet" id="MyMenuGroup" priority="0x0600">
+      <Group guid="guidMenuAndCommandsCmdSet" id="DeploySingleProject" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
       </Group>
     </Groups>
@@ -59,11 +59,13 @@
               <CommandFlag>DefaultInvisible</CommandFlag>
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
-      <Button guid="guidMenuAndCommandsCmdSet" id="DeploySelectedProjectId" priority="0x0100" type="Button">
-        <Parent guid="guidMenuAndCommandsCmdSet" id="MyMenuGroup" />
-        <Icon guid="guidImages" id="bmpPic1" />
+      
+        <!--Deploy single project-->
+      <Button guid="guidMenuAndCommandsCmdSet" id="DeploySingleProjectId" priority="0x0100" type="Button">
+        <Parent guid="guidMenuAndCommandsCmdSet" id="DeploySingleProject" />
+        <Icon guid="guidImages" id="toolMenuIcon" />
         <Strings>
-          <ButtonText>Deploy project output</ButtonText>
+          <ButtonText>Deploy project</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -75,12 +77,12 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-      <Bitmap guid="guidImages" href="Resources\DeploySelectedProject.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough"/>
+      <Bitmap guid="guidImages" href="Resources\DeploySelectedProject.png" usedList="toolMenuIcon"/>
     </Bitmaps>
   </Commands>
 
   <KeyBindings>
-    <KeyBinding guid="guidMenuAndCommandsCmdSet" id="DeploySelectedProjectId"
+    <KeyBinding guid="guidMenuAndCommandsCmdSet" id="DeploySingleProjectId"
         key1="D" mod1="CONTROL SHIFT" editor="guidVSStd97" />
   </KeyBindings>
 
@@ -90,17 +92,12 @@
 
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidMenuAndCommandsCmdSet" value="{4d4b75df-8678-4ffa-898d-8556ec90ddcf}">
-      <IDSymbol name="MyMenuGroup" value="0x1020" />
-      <IDSymbol name="DeploySelectedProjectId" value="0x0100" />
+      <IDSymbol name="DeploySingleProject" value="0x1020" />
+      <IDSymbol name="DeploySingleProjectId" value="0x0100" />
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{01bac27b-948b-468f-b3be-862d28ef1619}" >
-      <IDSymbol name="bmpPic1" value="1" />
-      <IDSymbol name="bmpPic2" value="2" />
-      <IDSymbol name="bmpPicSearch" value="3" />
-      <IDSymbol name="bmpPicX" value="4" />
-      <IDSymbol name="bmpPicArrows" value="5" />
-      <IDSymbol name="bmpPicStrikethrough" value="6" />
+      <IDSymbol name="toolMenuIcon" value="1" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>

@@ -31,19 +31,15 @@ namespace TP.AutoDeploy
         /// <param name="package">Owner package, not null.</param>
         private DeploySelectedProject(Package package)
         {
-            if (package == null)
-            {
-                throw new ArgumentNullException("package");
-            }
-
             this.package = package;
 
             var commandService = this.serviceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
             {
-                var menuCommandID = new CommandID(CommandSet, 0x0100);
-                var command = new OleMenuCommand(this.OnDeploySelectedProject, menuCommandID);
-                commandService.AddCommand(command);
+                // Deploy single project
+                var deploySingleBtnId = new CommandID(CommandSet, 0x0100);
+                var command1 = new OleMenuCommand(this.OnDeploySingleProject, deploySingleBtnId);
+                commandService.AddCommand(command1);
             }
         }
 
@@ -72,19 +68,28 @@ namespace TP.AutoDeploy
         }
 
         /// <summary>
-        /// This function is the callback used to execute the command when the menu item is clicked.
-        /// See the constructor to see how the menu item is associated with this function using
-        /// OleMenuCommandService service and MenuCommand class.
+        /// Handle callback function for deploying single project
         /// </summary>
-        /// <param name="sender">Event sender.</param>
-        /// <param name="e">Event args.</param>
-        private void OnDeploySelectedProject(object sender, EventArgs e)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnDeploySingleProject(object sender, EventArgs e)
         {
             if (this.CheckCondition())
             {
-                var view = new DeploySelectedProjectWindow(this.package);
-                view.LoadData();
-                view.ShowDialog();
+                var currentProjects = SolutionManager.Instance.GetActivatedProjects();
+
+                if (currentProjects.Count >= 2)
+                {
+                    var view = new DeployMultiProjectView(this.package);
+                    view.LoadData();
+                    view.ShowDialog();
+                }
+                else
+                {
+                    var view = new DeploySingleProjectView(this.package);
+                    view.LoadData();
+                    view.ShowDialog();
+                }
             }
         }
 

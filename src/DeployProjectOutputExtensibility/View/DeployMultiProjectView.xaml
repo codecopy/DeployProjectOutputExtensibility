@@ -1,0 +1,124 @@
+﻿<Window x:Class="TP.AutoDeploy.View.DeployMultiProjectView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TP.AutoDeploy.View"
+             mc:Ignorable="d" 
+             Height="350" Width="700"
+             Title="Deploy multi project" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="LBItemContainerStyle" TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--Main content-->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Project info-->
+            <Grid Margin="4,4,6,4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border BorderBrush="#FF007ACC" BorderThickness="0,0,0,1"
+                    Padding="4">
+                    <StackPanel>
+                        <TextBlock Text="Project(s)" FontWeight="Bold" FontFamily="Tahoma"/>
+                    </StackPanel>
+                </Border>
+
+                <!--Projects info-->
+                <ListBox Grid.Row="1" Margin="2" BorderBrush="Transparent"
+                          ItemContainerStyle="{StaticResource LBItemContainerStyle}"
+                          ItemsSource="{Binding Projects, Mode=OneWay}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ProjectName, UpdateSourceTrigger=PropertyChanged}"
+                                       ToolTip="{Binding Output, UpdateSourceTrigger=PropertyChanged}"
+                                       Grid.Column="1" VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+
+            <!--Deployment target-->
+            <Grid Grid.Column="1" Margin="6,4,4,4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border BorderBrush="#FF007ACC" BorderThickness="0,0,0,1"
+                    Padding="4">
+                    <StackPanel>
+                        <TextBlock Text="Deployment target" FontWeight="Bold" FontFamily="Tahoma"/>
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Margin="4" Grid.Row="1">
+                    <!--Target info view-->
+                    <ContentControl Content="{Binding ProjectDeployment, Mode=OneWay}"/>
+
+                    <!--Commands-->
+                    <Grid Margin="0 5 0 1">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="DeployManual" Content="Deploy"
+                                Width="80" Padding="4"
+                                Click="DeployManualOnClick" Background="#FF007ACC"
+                                Foreground="White" BorderBrush="#FF007ACC" Margin="2,0"/>
+
+                            <Button x:Name="Save" Content="Save"
+                                    Width="80" Padding="4"
+                                    Click="SaveOnClick" Background="#FF007ACC"
+                                    Foreground="White" BorderBrush="#FF007ACC" Margin="2,0">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=IsNewProject, Mode=OneWay}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        
+        <!--Error-->
+        <Border Grid.Row="1">
+            <TextBlock Text="{Binding Error, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                       TextTrimming="CharacterEllipsis"
+                   Margin="4" VerticalAlignment="Center" Foreground="White">
+            </TextBlock>
+
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Background" Value="#FF007ACC" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=HasError}" Value="True">
+                            <Setter Property="Background" Value="Red" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+        </Border>
+    </Grid>
+</Window>
