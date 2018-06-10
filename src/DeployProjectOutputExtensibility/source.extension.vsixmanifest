@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="TP.AutoDeploy.31dcc61d-9edd-40da-b43e-fad8aa09ed4a" Version="3.0" Language="en-US" Publisher="Phạm Tuân" />
+        <Identity Id="TP.AutoDeploy.31dcc61d-9edd-40da-b43e-fad8aa09ed4a" Version="3.1" Language="en-US" Publisher="Phạm Tuân" />
         <DisplayName>AutoDeployExtensibility</DisplayName>
         <Description xml:space="preserve">The Visual Studio extension which supports user deploy CSharp project output.</Description>
         <MoreInfo>https://phamtuantech.com</MoreInfo>

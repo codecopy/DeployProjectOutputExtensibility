@@ -25,7 +25,7 @@ namespace TP.AutoDeploy.Configuration
         /// <summary>
         /// The specific extension folder name
         /// </summary>
-        private const string SpecificExtensionFolderName = @"TP.Extension\AutoDeploy";
+        private const string ToolDataPath = @"Visual Studio Extensions\AutoDeploy";
 
         /// <summary>
         /// The user data configuration file name
@@ -57,6 +57,11 @@ namespace TP.AutoDeploy.Configuration
         /// The installation path
         /// </summary>
         private string installationPath;
+
+        /// <summary>
+        /// The current user path
+        /// </summary>
+        private string currentUserPath;
 
         /// <summary>
         /// Gets the instance.
@@ -110,6 +115,8 @@ namespace TP.AutoDeploy.Configuration
         public ConfigurationProvider()
         {
             this.installationPath = Path.GetDirectoryName(this.GetType().Assembly.Location);
+            this.currentUserPath = Path.GetTempPath();
+            this.currentUserPath = Path.Combine(this.currentUserPath, ToolDataPath);
             this.LoadSeting();
         }
 
@@ -118,7 +125,7 @@ namespace TP.AutoDeploy.Configuration
         /// </summary>
         private void LoadSeting()
         {
-            var settingFile = Path.Combine(installationPath, ToolSettingFileName);
+            var settingFile = Path.Combine(currentUserPath, ToolSettingFileName);
 
             if (File.Exists(settingFile))
             {
@@ -136,7 +143,7 @@ namespace TP.AutoDeploy.Configuration
         /// <exception cref="NotImplementedException"></exception>
         public void SaveSetting()
         {
-            var settingFile = Path.Combine(installationPath, ToolSettingFileName);
+            var settingFile = Path.Combine(currentUserPath, ToolSettingFileName);
             XmlHelper.SaveToFile((ToolSetting) this.Setting, settingFile);
         }
 

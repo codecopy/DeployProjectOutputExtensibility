@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
 using TP.AutoDeploy.Configuration;
+using TP.AutoDeploy.Helper;
 using TP.AutoDeploy.Manager;
 using TP.AutoDeploy.Models;
 
@@ -208,9 +209,10 @@ namespace TP.AutoDeploy.View
                     this.configPrd.Save();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // Ignore
+                EnvironmentHelper.WriteError($"Got an exception while saving Tool setting. {ex}");
+                VSUIHelper.ShowMessageBox($"Got an exception while saving Tool setting. {ex.Message}");
             }
         }
 

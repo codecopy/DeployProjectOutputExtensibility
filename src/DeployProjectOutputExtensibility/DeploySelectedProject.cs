@@ -108,29 +108,37 @@ namespace TP.AutoDeploy
         {
             if (this.CheckCondition())
             {
-                var currentProjects = SolutionManager.Instance.GetActivatedProjects();
-
-                if (currentProjects.Count >= 2)
+                try
                 {
-                    var view = new DeployMultiProjectView(this.package);
-                    view.LoadData();
-                    view.ShowDialog();
+                    var currentProjects = SolutionManager.Instance.GetActivatedProjects();
 
-                    if (!view.IsNewProject)
+                    if (currentProjects.Count >= 2)
                     {
-                        SaveHistory(view.DeployTargetInfo);
+                        var view = new DeployMultiProjectView(this.package);
+                        view.LoadData();
+                        view.ShowDialog();
+
+                        if (!view.IsNewProject)
+                        {
+                            SaveHistory(view.DeployTargetInfo);
+                        }
+                    }
+                    else
+                    {
+                        var view = new DeploySingleProjectView(this.package);
+                        view.LoadData();
+                        view.ShowDialog();
+
+                        if (!view.IsNewProject)
+                        {
+                            SaveHistory(view.DeployTargetInfo);
+                        }
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    var view = new DeploySingleProjectView(this.package);
-                    view.LoadData();
-                    view.ShowDialog();
-
-                    if (!view.IsNewProject)
-                    {
-                        SaveHistory(view.DeployTargetInfo);
-                    }
+                    EnvironmentHelper.WriteError($"Got an exception while handling deploy. {ex}");
+                    VSUIHelper.ShowMessageBox($"Got an exception while showing handling deploy. {ex.Message}");
                 }
             }
         }

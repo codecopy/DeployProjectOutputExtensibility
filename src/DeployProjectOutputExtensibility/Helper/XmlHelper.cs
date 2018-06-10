@@ -21,6 +21,11 @@ namespace TP.AutoDeploy.Helper
         {
             try
             {
+                if (!File.Exists(xmlFilePath))
+                {
+                    return default(T);
+                }
+
                 var s = new XmlSerializer(typeof(T));
                 using (var fs = new FileStream(xmlFilePath, FileMode.Open, FileAccess.Read))
                 {
@@ -51,6 +56,13 @@ namespace TP.AutoDeploy.Helper
         {
             try
             {
+
+                var folder = Path.GetDirectoryName(xmlFilePath);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
                 var xmlString = ToString(obj);
 
                 // Create an XmlDocument to read the data

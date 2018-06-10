@@ -200,8 +200,8 @@ namespace TP.AutoDeploy.Manager
         /// <exception cref="NotSupportedException">Cannot create window.</exception>
         public Project GetActivatedProject()
         {
-            var activateProjects = ((Array)((DTE2)this.dte).ActiveSolutionProjects);
-            if (activateProjects.Length > 0)
+            var activateProjects = ((Array)((DTE2)this.dte)?.ActiveSolutionProjects);
+            if (activateProjects?.Length > 0)
             {
                 return activateProjects.GetValue(0) as Project;
             }
