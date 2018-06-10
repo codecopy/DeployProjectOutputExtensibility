@@ -3,8 +3,11 @@ using System.ComponentModel.Design;
 using System.Globalization;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using TP.AutoDeploy.Configuration;
+using TP.AutoDeploy.Extension;
 using TP.AutoDeploy.Helper;
 using TP.AutoDeploy.Manager;
+using TP.AutoDeploy.Models;
 using TP.AutoDeploy.View;
 
 namespace TP.AutoDeploy
@@ -24,6 +27,8 @@ namespace TP.AutoDeploy
         /// </summary>
         private readonly Package package;
 
+        public const int cmdidTestSubCmd = 0x105;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Deploy.SelectedProject"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
@@ -40,7 +45,34 @@ namespace TP.AutoDeploy
                 var deploySingleBtnId = new CommandID(CommandSet, 0x0100);
                 var command1 = new OleMenuCommand(this.OnDeploySingleProject, deploySingleBtnId);
                 commandService.AddCommand(command1);
+
+                CommandID subCommandID = new CommandID(CommandSet, (int)cmdidTestSubCmd);
+                MenuCommand subItem = new MenuCommand(
+                    new EventHandler(SubItemCallback), subCommandID);
+                commandService.AddCommand(subItem);
             }
+        }
+
+        private void SubItemCallback(object sender, EventArgs e)
+        {
+            IVsUIShell uiShell = (IVsUIShell)this.serviceProvider.GetService(
+        typeof(SVsUIShell));
+            Guid clsid = Guid.Empty;
+            int result;
+            uiShell.ShowMessageBox(
+                0,
+                ref clsid,
+                "TestCommand",
+                string.Format(CultureInfo.CurrentCulture,
+                "Inside TestCommand.SubItemCallback()",
+                this.ToString()),
+                string.Empty,
+                0,
+                OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST,
+                OLEMSGICON.OLEMSGICON_INFO,
+                0,
+                out result);
         }
 
         /// <summary>
@@ -83,14 +115,39 @@ namespace TP.AutoDeploy
                     var view = new DeployMultiProjectView(this.package);
                     view.LoadData();
                     view.ShowDialog();
+
+                    if (!view.IsNewProject)
+                    {
+                        SaveHistory(view.DeployTargetInfo);
+                    }
                 }
                 else
                 {
                     var view = new DeploySingleProjectView(this.package);
                     view.LoadData();
                     view.ShowDialog();
+
+                    if (!view.IsNewProject)
+                    {
+                        SaveHistory(view.DeployTargetInfo);
+                    }
                 }
             }
+        }
+
+        /// <summary>
+        /// Saves the history.
+        /// </summary>
+        /// <param name="deployTargetInfo">The deploy target information.</param>
+        private static void SaveHistory(TargetInfo deployTargetInfo)
+        {
+            if (deployTargetInfo.Inherit)
+            {
+                return;
+            }
+
+            var userMetadata = ConfigurationProvider.Instance.UserMetadata;
+            userMetadata.AnonymousData.UpdateLocationHistory(deployTargetInfo.Name, deployTargetInfo.GetAbsolute());
         }
 
         /// <summary>

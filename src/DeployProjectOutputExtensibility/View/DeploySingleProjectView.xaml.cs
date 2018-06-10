@@ -46,7 +46,7 @@ namespace TP.AutoDeploy.View
         /// <summary>
         /// The configuration project
         /// </summary>
-        private TargetInfo configProject;
+        private TargetInfo deployTarget;
 
         /// <summary>
         /// The is project existing
@@ -56,6 +56,14 @@ namespace TP.AutoDeploy.View
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the deploy target information.
+        /// </summary>
+        /// <value>
+        /// The deploy target information.
+        /// </value>
+        public TargetInfo DeployTargetInfo => this.deployTarget;
 
         /// <summary>
         /// Gets the service provider from the owner package.
@@ -122,19 +130,19 @@ namespace TP.AutoDeploy.View
             var projectInfo = new ProjectInfo(this.currentProject);
             this.ProjectInfo = new ProjectInfoView(projectInfo);
 
-            this.configProject = this.userMetadata?[this.ProjectInfo.ProjectName];
-            if (this.configProject == null)
+            this.deployTarget = this.userMetadata?[this.ProjectInfo.ProjectName];
+            if (this.deployTarget == null)
             {
                 this.IsNewProject = true;
-                this.configProject = new TargetInfo
+                this.deployTarget = new TargetInfo
                 {
                     Name = this.ProjectInfo.ProjectName,
                     TargetDir = string.Empty
                 };
-                this.configProject.UpdateData(this.userMetadata);
+                this.deployTarget.UpdateData(this.userMetadata);
             }
 
-            this.ProjectDeployment = new ProjectDeploymentView(this.configProject);
+            this.ProjectDeployment = new ProjectDeploymentView(this.deployTarget);
         }
 
         /// <summary>
@@ -147,7 +155,7 @@ namespace TP.AutoDeploy.View
             this.ClearErrorAndLog();
 
             string message;
-            if (this.ProjectInfo.Project.Deploy(this.configProject, out message))
+            if (this.ProjectInfo.Project.Deploy(this.deployTarget, out message))
             {
                 this.Log(message);
             }
@@ -168,7 +176,7 @@ namespace TP.AutoDeploy.View
 
             if (this.IsNewProject)
             {
-                this.userMetadata.Targets.Add(this.configProject);
+                this.userMetadata.Targets.Add(this.deployTarget);
             }
 
             try

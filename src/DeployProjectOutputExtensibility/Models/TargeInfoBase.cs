@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -11,7 +12,7 @@ using TP.AutoDeploy.Extension;
 namespace TP.AutoDeploy.Models
 {
     [ImplementPropertyChanged]
-    public class TargetInfoBase
+    public class TargetInfoBase : ICloneable
     {
         private TargetInfoBase parentObject;
 
@@ -26,7 +27,7 @@ namespace TP.AutoDeploy.Models
             set
             {
                 this.parentObject = value;
-                this.Parent = value.Name;
+                this.Parent = value?.Name;
             }
         }
 
@@ -91,6 +92,17 @@ namespace TP.AutoDeploy.Models
         /// </value>
         [AlsoNotifyFor("AbsoluteDir")]
         public bool IsFixedTargetDir { get; set; }
+
+        /// <summary>
+        /// Creates a new object that is a copy of the current instance.
+        /// </summary>
+        /// <returns>
+        /// A new object that is a copy of this instance.
+        /// </returns>
+        public object Clone()
+        {
+            return (TargetInfoBase) this.MemberwiseClone();
+        }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.

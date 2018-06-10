@@ -29,6 +29,14 @@ namespace TP.AutoDeploy.Models
         public List<TargetInfo> Targets { get; set; }
 
         /// <summary>
+        /// Gets or sets the anonymous data.
+        /// </summary>
+        /// <value>
+        /// The anonymous data.
+        /// </value>
+        public AnonymousData AnonymousData { get; set; }
+
+        /// <summary>
         /// Gets the <see cref="TargetInfo"/> with the specified project name.
         /// </summary>
         /// <value>
@@ -51,6 +59,7 @@ namespace TP.AutoDeploy.Models
         {
             this.Targets = new List<TargetInfo>();
             this.CommonTarget = new List<TargetInfoBase>();
+            this.AnonymousData = new AnonymousData();
         }
 
         /// <summary>

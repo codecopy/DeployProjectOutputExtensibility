@@ -42,7 +42,7 @@ namespace TP.AutoDeploy.View
         /// <summary>
         /// The configuration project
         /// </summary>
-        private TargetInfo configProject;
+        private TargetInfo deployTarget;
 
         /// <summary>
         /// The is project existing
@@ -52,6 +52,14 @@ namespace TP.AutoDeploy.View
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the deploy target information.
+        /// </summary>
+        /// <value>
+        /// The deploy target information.
+        /// </value>
+        public TargetInfo DeployTargetInfo => this.deployTarget;
 
         /// <summary>
         /// Gets the service provider from the owner package.
@@ -119,24 +127,24 @@ namespace TP.AutoDeploy.View
 
             if (selectedProjects.Count == 1)
             {
-                this.configProject = this.userMetadata?[selectedProjects[0].Name];
+                this.deployTarget = this.userMetadata?[selectedProjects[0].Name];
             }
             else
             {
-                this.configProject = this.userMetadata?[multiProject];
+                this.deployTarget = this.userMetadata?[multiProject];
             }
 
-            if (this.configProject == null)
+            if (this.deployTarget == null)
             {
                 this.IsNewProject = true;
-                this.configProject = new TargetInfo
+                this.deployTarget = new TargetInfo
                 {
                     Name = multiProject,
                     TargetDir = string.Empty
                 };
-                this.configProject.UpdateData(this.userMetadata);
+                this.deployTarget.UpdateData(this.userMetadata);
             }
-            this.ProjectDeployment = new ProjectDeploymentView(this.configProject);
+            this.ProjectDeployment = new ProjectDeploymentView(this.deployTarget);
 
             // Load selected project
             foreach (var pr in selectedProjects)
@@ -158,7 +166,7 @@ namespace TP.AutoDeploy.View
             foreach (var pr in this.Projects)
             {
                 string message;
-                if (pr.Deploy(this.configProject, out message))
+                if (pr.Deploy(this.deployTarget, out message))
                 {
                     this.Log(message);
                 }
@@ -181,7 +189,7 @@ namespace TP.AutoDeploy.View
 
             if (this.IsNewProject)
             {
-                this.userMetadata.Targets.Add(this.configProject);
+                this.userMetadata.Targets.Add(this.deployTarget);
             }
 
             try

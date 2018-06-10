@@ -76,6 +76,7 @@ namespace TP.AutoDeploy.Manager
         }
 
         #endregion
+
         /// <summary>
         /// Prevents a default instance of the <see cref="SolutionManager"/> class from being created.
         /// </summary>

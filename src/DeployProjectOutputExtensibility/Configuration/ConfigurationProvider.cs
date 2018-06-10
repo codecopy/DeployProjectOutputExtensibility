@@ -18,6 +18,11 @@ namespace TP.AutoDeploy.Configuration
         private const string ConfigFileExtension = ".tpe";
 
         /// <summary>
+        /// The tool setting file n ame
+        /// </summary>
+        private const string ToolSettingFileName = "Setting.xml";
+
+        /// <summary>
         /// The specific extension folder name
         /// </summary>
         private const string SpecificExtensionFolderName = @"TP.Extension\AutoDeploy";
@@ -49,6 +54,11 @@ namespace TP.AutoDeploy.Configuration
         private SolutionManager solutionManager => SolutionManager.Instance;
 
         /// <summary>
+        /// The installation path
+        /// </summary>
+        private string installationPath;
+
+        /// <summary>
         /// Gets the instance.
         /// </summary>
         /// <value>
@@ -60,6 +70,14 @@ namespace TP.AutoDeploy.Configuration
         /// The current data
         /// </summary>
         public UserMetadata UserMetadata { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the setting.
+        /// </summary>
+        /// <value>
+        /// The setting.
+        /// </value>
+        public IToolSetting Setting { get; set; }
 
         /// <summary>
         /// Loads the configuration.
@@ -84,6 +102,42 @@ namespace TP.AutoDeploy.Configuration
 
             this.UserMetadata.UpdateData();
             return this.UserMetadata;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConfigurationProvider"/> class.
+        /// </summary>
+        public ConfigurationProvider()
+        {
+            this.installationPath = Path.GetDirectoryName(this.GetType().Assembly.Location);
+            this.LoadSeting();
+        }
+
+        /// <summary>
+        /// Loads the seting.
+        /// </summary>
+        private void LoadSeting()
+        {
+            var settingFile = Path.Combine(installationPath, ToolSettingFileName);
+
+            if (File.Exists(settingFile))
+            {
+                this.Setting = XmlHelper.LoadFromFile<ToolSetting>(settingFile);
+            }
+            else
+            {
+                this.Setting = new ToolSetting();
+            }
+        }
+
+        /// <summary>
+        /// Saves the setting.
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        public void SaveSetting()
+        {
+            var settingFile = Path.Combine(installationPath, ToolSettingFileName);
+            XmlHelper.SaveToFile((ToolSetting) this.Setting, settingFile);
         }
 
         /// <summary>

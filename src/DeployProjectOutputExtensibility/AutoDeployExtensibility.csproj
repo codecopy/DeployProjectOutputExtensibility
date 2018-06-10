@@ -50,7 +50,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -58,14 +58,19 @@
   <ItemGroup>
     <Compile Include="Configuration\ConfigurationProvider.cs" />
     <Compile Include="DeploySelectedProject.cs" />
+    <Compile Include="Extension\AnonymousDataEx.cs" />
     <Compile Include="Extension\TargetExtension.cs" />
     <Compile Include="Helper\Environment.cs" />
     <Compile Include="Helper\VSUIHelper.cs" />
     <Compile Include="Helper\XmlHelper.cs" />
     <Compile Include="Manager\SolutionManager.cs" />
+    <Compile Include="Models\AnonymousData.cs" />
+    <Compile Include="Models\IToolSetting.cs" />
+    <Compile Include="Models\LocationHistory.cs" />
     <Compile Include="Models\ProjectInfo.cs" />
     <Compile Include="Models\TargetInfo.cs" />
     <Compile Include="Models\TargeInfoBase.cs" />
+    <Compile Include="Models\ToolSetting.cs" />
     <Compile Include="Models\UserMetadata.cs" />
     <Compile Include="View\DeployMultiProjectView.xaml.cs">
       <DependentUpon>DeployMultiProjectView.xaml</DependentUpon>
@@ -75,11 +80,15 @@
     </Compile>
     <Compile Include="DeploySelectedProjectPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\OptionPage.cs" />
     <Compile Include="View\ProjectDeploymentView.xaml.cs">
       <DependentUpon>ProjectDeploymentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ProjectInfoView.xaml.cs">
       <DependentUpon>ProjectInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Setting.xaml.cs">
+      <DependentUpon>Setting.xaml</DependentUpon>
     </Compile>
     <Compile Include="VSContext.cs" />
   </ItemGroup>
@@ -116,6 +125,9 @@
     <Content Include="stylesheet.css" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="DotNetKit.Wpf.AutoCompleteComboBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetKit.Wpf.AutoCompleteComboBox.1.2.0\lib\net45\DotNetKit.Wpf.AutoCompleteComboBox.dll</HintPath>
+    </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
@@ -236,6 +248,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ProjectInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Setting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

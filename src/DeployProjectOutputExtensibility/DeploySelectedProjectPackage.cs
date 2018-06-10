@@ -1,14 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
+using TP.AutoDeploy.View;
 
 namespace TP.AutoDeploy
 {
@@ -33,8 +38,9 @@ namespace TP.AutoDeploy
     [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionHasSingleProject_string)]
     [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionHasMultipleProjects_string)]
     [PackageRegistration(UseManagedResourcesOnly = true)]
-    [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "3.0", IconResourceID = 400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
+    [ProvideOptionPage(typeof(OptionPage), "Deploy Definition", "General", 113, 114, true)]
     [Guid(DeploySelectedProjectPackage.PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     public sealed class DeploySelectedProjectPackage : Package
@@ -45,6 +51,19 @@ namespace TP.AutoDeploy
         public const string PackageGuidString = "770c6009-b7ea-4235-b693-bff1afb6063d";
 
         /// <summary>
+        /// The installation path
+        /// </summary>
+        private string installationPath;
+
+        /// <summary>
+        /// The reference assemblies
+        /// </summary>
+        private List<string> refAssemblies = new List<string>()
+        {
+            "DotNetKit.Wpf.AutoCompleteComboBox"
+        };
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Deploy.SelectedProject"/> class.
         /// </summary>
         public DeploySelectedProjectPackage()
@@ -53,6 +72,40 @@ namespace TP.AutoDeploy
             // any Visual Studio service because at this point the package object is created but
             // not sited yet inside Visual Studio environment. The place to do all the other
             // initialization is the Initialize method.
+
+            this.installationPath = Path.GetDirectoryName(this.GetType().Assembly.Location);
+            AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
+        }
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        public void Dispose()
+        {
+            AppDomain.CurrentDomain.AssemblyResolve -= OnAssemblyResolve;
+        }
+
+        /// <summary>
+        /// Called when [assembly resolve].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="ResolveEventArgs"/> instance containing the event data.</param>
+        /// <returns></returns>
+        private Assembly OnAssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            var requestAss = args.Name.Split(',')[0];
+            var isRefAss = this.refAssemblies.Any(ass => string.Equals(ass, requestAss));
+            if (isRefAss)
+            {
+                try
+                {
+                    return Assembly.LoadFrom(Path.Combine(this.installationPath, $"{requestAss}.dll"));
+                }
+                catch (Exception)
+                {
+                }
+            }
+            return null;
         }
 
         #region Package Members
